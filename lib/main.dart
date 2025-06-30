@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tareas Pro',
       theme: AppTheme.theme,
-      home: const TaskScreen(),
+      home: const TaskScreen("Prueba "),
     );
   }
 }
