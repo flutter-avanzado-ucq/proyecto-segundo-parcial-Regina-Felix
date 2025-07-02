@@ -1,4 +1,3 @@
-// card_tarea.dart 
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -10,9 +9,8 @@ class TaskCard extends StatelessWidget {
   final VoidCallback onToggle;
   final VoidCallback onDelete;
   final Animation<double> iconRotation;
-  final DateTime? dueDate; // Fecha de vencimiento de la tarea
-  final TimeOfDay? dueTime; // Hora de vencimiento de la tarea
-  final int index; // Índice de la tarea
+  final DateTime? dueDate;
+  final int index;
 
   const TaskCard({
     super.key,
@@ -23,7 +21,6 @@ class TaskCard extends StatelessWidget {
     required this.iconRotation,
     required this.index,
     this.dueDate,
-    this.dueTime,
   });
 
   @override
@@ -82,17 +79,15 @@ class TaskCard extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 4,
                     children: [
-                      // Muestra la fecha formateada si se asignó
+                      // Integración Hive: la hora y fecha se extraen de dueDate, que es un DateTime completo
                       Text(
                         'Vence: ${DateFormat('dd/MM/yyyy').format(dueDate!)}',
                         style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
-                      // Muestra la hora si también se asignó
-                      if (dueTime != null)
-                        Text(
-                          'Hora: ${dueTime!.hour.toString().padLeft(2, '0')}:${dueTime!.minute.toString().padLeft(2, '0')}',
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
+                      Text(
+                        'Hora: ${DateFormat('HH:mm').format(dueDate!)}',
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
@@ -104,7 +99,6 @@ class TaskCard extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.edit, color: Colors.blue),
                 onPressed: () {
-                  // Abre el modal para editar la tarea
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
@@ -117,7 +111,7 @@ class TaskCard extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.delete_outline, color: Colors.red),
-                onPressed: onDelete, // Ejecuta el método para eliminar la tarea
+                onPressed: onDelete,
               ),
             ],
           ),

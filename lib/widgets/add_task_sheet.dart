@@ -1,4 +1,3 @@
-// add_task_sheet.dart 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider_task/task_provider.dart';
@@ -14,7 +13,7 @@ class AddTaskSheet extends StatefulWidget {
 class _AddTaskSheetState extends State<AddTaskSheet> {
   final _controller = TextEditingController();
   DateTime? _selectedDate;
-  TimeOfDay? _selectedTime; // Manejo de la hora para la notificación
+  TimeOfDay? _selectedTime;
 
   @override
   void dispose() {
@@ -22,22 +21,20 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
     super.dispose();
   }
 
-  // Función para crear la tarea y programar notificación si hay fecha y hora
   void _submit() async {
     final text = _controller.text.trim();
     if (text.isNotEmpty) {
       int? notificationId;
+      DateTime? finalDueDate;
 
-      // Notificación inmediata para confirmar la creación
       await NotificationService.showImmediateNotification(
         title: 'Nueva tarea',
         body: 'Has agregado la tarea: $text',
         payload: 'Tarea: $text',
       );
 
-      // Si el usuario seleccionó fecha y hora, programa la notificación
       if (_selectedDate != null && _selectedTime != null) {
-        final scheduledDateTime = DateTime(
+        finalDueDate = DateTime(
           _selectedDate!.year,
           _selectedDate!.month,
           _selectedDate!.day,
@@ -45,31 +42,28 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
           _selectedTime!.minute,
         );
 
-        // Genera un ID único para la notificación usando la hora actual
         notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
         await NotificationService.scheduleNotification(
           title: 'Recordatorio de tarea',
           body: 'No olvides: $text',
-          scheduledDate: scheduledDateTime, // Se usa la hora para programar la notificación
-          payload: 'Tarea programada: $text para $scheduledDateTime',
-          notificationId: notificationId, // Guarda el ID para cancelarla si es necesario
+          scheduledDate: finalDueDate,
+          payload: 'Tarea programada: $text para $finalDueDate',
+          notificationId: notificationId,
         );
       }
 
-      // Agrega la tarea al provider con fecha, hora e ID de notificación
+      // Integración Hive: guardar la tarea en Provider + Hive
       Provider.of<TaskProvider>(context, listen: false).addTask(
         text,
-        dueDate: _selectedDate,
-        dueTime: _selectedTime,
+        dueDate: finalDueDate ?? _selectedDate, // Integración Hive: se pasa la fecha completa
         notificationId: notificationId,
       );
 
-      Navigator.pop(context); // Cierra el modal
+      Navigator.pop(context);
     }
   }
 
-  // Muestra el selector de fecha
   Future<void> _pickDate() async {
     final now = DateTime.now();
     final picked = await showDatePicker(
@@ -85,7 +79,6 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
     }
   }
 
-  // Muestra el selector de hora
   Future<void> _pickTime() async {
     final picked = await showTimePicker(
       context: context,

@@ -5,11 +5,11 @@ class AppTheme {
   static final theme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-    scaffoldBackgroundColor: const Color(0xFFF3F4F6),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
     textTheme: GoogleFonts.poppinsTextTheme(),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color.fromARGB(255, 58, 175, 183),
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),

@@ -10,33 +10,35 @@ class Header extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF7F00FF), Color(0xFFE100FF)],
+          colors: [Color.fromARGB(255, 66, 203, 221), Color.fromARGB(255, 156, 151, 157)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
       ),
-      child: const Row(
+      child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 24,
-            backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=47'),
+            backgroundImage: NetworkImage(
+              'https://i.pravatar.cc/150?img=47',
+            ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text(
-                'Hola, Liliana 👋',
+                // Cambio de icono
+                'Hola, Regina',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               Text(
                 'Estas son tus tareas para hoy',
                 style: TextStyle(color: Colors.white70, fontSize: 14),
               ),
-              SizedBox(height: 8), // espacio visual
             ],
-          ),
+          )
         ],
       ),
     );
