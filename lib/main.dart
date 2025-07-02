@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'screens/tarea_screen.dart';
+import 'screens/task_screen.dart';
 import 'tema/tema_app.dart';
 import 'package:provider/provider.dart';
 import 'provider_task/task_provider.dart';
 
-// 🔔 Importar el servicio de notificaciones
+//  Importar el servicio de notificaciones
 import 'services/notification_service.dart';
 
 
@@ -34,9 +34,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tareas Pro',
+      title: 'Tareas Pro by Re',
       theme: AppTheme.theme,
-      home: const TaskScreen("Prueba "),
+      home: const TaskScreen(),
     );
   }
 }

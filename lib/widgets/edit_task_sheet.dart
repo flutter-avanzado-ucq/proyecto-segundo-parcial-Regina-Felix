@@ -1,10 +1,11 @@
+// edit_task_sheet.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider_task/task_provider.dart';
 import '../services/notification_service.dart';
 
 class EditTaskSheet extends StatefulWidget {
-  final int index;
+  final int index; // Índice de la tarea a editar
 
   const EditTaskSheet({super.key, required this.index});
 
@@ -15,7 +16,7 @@ class EditTaskSheet extends StatefulWidget {
 class _EditTaskSheetState extends State<EditTaskSheet> {
   late TextEditingController _controller;
   DateTime? _selectedDate;
-  TimeOfDay? _selectedTime;
+  TimeOfDay? _selectedTime; // Manejo de la hora para la notificación
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
     _selectedTime = task.dueTime ?? const TimeOfDay(hour: 8, minute: 0);
   }
 
+  // Función para guardar los cambios y actualizar la notificación si aplica
   void _submit() async {
     final newTitle = _controller.text.trim();
     if (newTitle.isNotEmpty) {
@@ -33,16 +35,19 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
 
       final task = Provider.of<TaskProvider>(context, listen: false).tasks[widget.index];
 
+      // Si la tarea tenía una notificación programada, se cancela para evitar duplicados
       if (task.notificationId != null) {
         await NotificationService.cancelNotification(task.notificationId!);
       }
 
+      // Notificación inmediata para confirmar la actualización
       await NotificationService.showImmediateNotification(
         title: 'Tarea actualizada',
         body: 'Has actualizado la tarea: $newTitle',
         payload: 'Tarea actualizada: $newTitle',
       );
 
+      // Si se seleccionó fecha y hora, se programa nueva notificación
       if (_selectedDate != null && _selectedTime != null) {
         final scheduledDateTime = DateTime(
           _selectedDate!.year,
@@ -52,17 +57,19 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
           _selectedTime!.minute,
         );
 
+        // Genera un nuevo ID único para la notificación
         notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
         await NotificationService.scheduleNotification(
           title: 'Recordatorio de tarea actualizada',
           body: 'No olvides: $newTitle',
-          scheduledDate: scheduledDateTime,
+          scheduledDate: scheduledDateTime, // Se usa la hora para programar la notificación
           payload: 'Tarea actualizada: $newTitle para $scheduledDateTime',
-          notificationId: notificationId,
+          notificationId: notificationId, // Guarda el nuevo ID
         );
       }
 
+      // Actualiza la tarea en el provider con los nuevos datos y la notificación
       Provider.of<TaskProvider>(context, listen: false).updateTask(
         widget.index,
         newTitle,
@@ -71,10 +78,11 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
         notificationId: notificationId,
       );
 
-      Navigator.pop(context);
+      Navigator.pop(context); // Cierra el modal
     }
   }
 
+  // Muestra selector de fecha para cambiar la fecha de la tarea
   Future<void> _pickDate() async {
     final now = DateTime.now();
     final picked = await showDatePicker(
@@ -90,6 +98,7 @@ class _EditTaskSheetState extends State<EditTaskSheet> {
     }
   }
 
+  // Muestra selector de hora para cambiar la hora de la tarea
   Future<void> _pickTime() async {
     final picked = await showTimePicker(
       context: context,

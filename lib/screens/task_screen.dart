@@ -1,3 +1,4 @@
+// task_screen.dart - Código comentado
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+    // Controlador para animación del ícono de las tareas
     _iconController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -31,6 +33,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
+  // Abre el modal para agregar una nueva tarea
   void _showAddTaskSheet() {
     showModalBottomSheet(
       context: context,
@@ -44,13 +47,13 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final taskProvider = context.watch<TaskProvider>();
+    final taskProvider = context.watch<TaskProvider>(); // Escucha cambios en la lista de tareas
 
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            const Header(),
+            const Header(), // Encabezado de la app
             Expanded(
               child: AnimationLimiter(
                 child: ListView.builder(
@@ -67,7 +70,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                           child: Dismissible(
                             key: ValueKey(task.title),
                             direction: DismissDirection.endToStart,
-                            onDismissed: (_) => taskProvider.removeTask(index),
+                            onDismissed: (_) => taskProvider.removeTask(index), // Elimina la tarea y su notificación si existe
                             background: Container(
                               alignment: Alignment.centerRight,
                               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -83,12 +86,12 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                               title: task.title,
                               isDone: task.done,
                               dueDate: task.dueDate,
-                              dueTime: task.dueTime, // ✅ ← AGREGADO
+                              dueTime: task.dueTime, // ⏰ Se pasa la hora de la tarea para mostrarla
                               onToggle: () {
                                 taskProvider.toggleTask(index);
                                 _iconController.forward(from: 0);
                               },
-                              onDelete: () => taskProvider.removeTask(index),
+                              onDelete: () => taskProvider.removeTask(index), // Elimina tarea (y notificación si existe)
                               iconRotation: _iconController,
                               index: index,
                             ),
@@ -104,7 +107,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddTaskSheet,
+        onPressed: _showAddTaskSheet, // Abre el formulario para agregar tarea
         backgroundColor: Colors.pinkAccent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
