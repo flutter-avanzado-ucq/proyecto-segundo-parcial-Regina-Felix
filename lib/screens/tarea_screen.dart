@@ -1,6 +1,8 @@
+// task_screen.dart 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:tareas/screens/theme_provider.dart'; // agregación del theme_provider.dart
 import '../widgets/card_tarea.dart';
 import '../widgets/header.dart';
 import '../widgets/add_task_sheet.dart';
@@ -31,6 +33,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
+  // Muestra hoja modal para agregar una nueva tarea
   void _showAddTaskSheet() {
     showModalBottomSheet(
       context: context,
@@ -47,6 +50,25 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
     final taskProvider = context.watch<TaskProvider>();
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tareas Pro'),
+        actions: [
+          // Icono para cambiar tema claro/oscuro
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return IconButton(
+                icon: Icon(
+                  themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                ),
+                tooltip: 'Cambiar tema',
+                onPressed: () {
+                  themeProvider.toggleTheme();
+                },
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -65,8 +87,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                         verticalOffset: 30.0,
                         child: FadeInAnimation(
                           child: Dismissible(
-                            // Integración Hive: uso de task.key (HiveObject)
-                            key: ValueKey(task.key),
+                            key: ValueKey(task.key), // Uso del key de Hive
                             direction: DismissDirection.endToStart,
                             onDismissed: (_) => taskProvider.removeTask(index),
                             background: Container(
@@ -80,10 +101,11 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                               child: const Icon(Icons.delete, color: Colors.white),
                             ),
                             child: TaskCard(
-                              key: ValueKey(task.key), // Integración Hive: uso de task.key
+                              key: ValueKey(task.key),
                               title: task.title,
                               isDone: task.done,
                               dueDate: task.dueDate,
+                              dueTime: task.dueTime,
                               onToggle: () {
                                 taskProvider.toggleTask(index);
                                 _iconController.forward(from: 0);

@@ -20,7 +20,7 @@ class TaskCard extends StatelessWidget {
     required this.onDelete,
     required this.iconRotation,
     required this.index,
-    this.dueDate,
+    this.dueDate, required dueTime,
   });
 
   @override

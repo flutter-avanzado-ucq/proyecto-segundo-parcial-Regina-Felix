@@ -86,14 +86,14 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                               title: task.title,
                               isDone: task.done,
                               dueDate: task.dueDate,
-                              dueTime: task.dueTime, // ⏰ Se pasa la hora de la tarea para mostrarla
+                              // dueTime: task.dueTime, // ⏰ Se pasa la hora de la tarea para mostrarla
                               onToggle: () {
                                 taskProvider.toggleTask(index);
                                 _iconController.forward(from: 0);
                               },
                               onDelete: () => taskProvider.removeTask(index), // Elimina tarea (y notificación si existe)
                               iconRotation: _iconController,
-                              index: index,
+                              index: index, dueTime: null,
                             ),
                           ),
                         ),
