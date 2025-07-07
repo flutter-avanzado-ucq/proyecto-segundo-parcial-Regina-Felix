@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "appTitle": "Task Manager",
+  "addTask": "Add task",
+  "editTask": "Edit task",
+  "deleteTask": "Delete task",
+  "changeTheme": "Change theme",
+  "addNewTask": "Add new task",
+  "description": "Description",
+  "selectDate": "Select date",
+  "selectTime": "Select time",
+  "timeLabel": "Time:",
+  "dueDate": "Due:",
+  "hourLabel": "Time:",
+  "titleLabel": "Title",
+  "changeDate": "Change date",
+  "changeTime": "Change time",
+  "saveChanges": "Save changes",
+  "greeting": "Hi, Regina 👋",
+  "todayTasks": "These are your tasks for today",
+  "name": "name"
+}

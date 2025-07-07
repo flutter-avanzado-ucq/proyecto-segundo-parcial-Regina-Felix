@@ -1,12 +1,15 @@
-// task_screen.dart 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:tareas/screens/theme_provider.dart'; // agregación del theme_provider.dart
+
 import '../widgets/card_tarea.dart';
 import '../widgets/header.dart';
 import '../widgets/add_task_sheet.dart';
 import '../provider_task/task_provider.dart';
+import '../provider_task/theme_provider.dart';
+
+// Importar AppLocalizations generado
+import 'package:tareas/l10n/app_localizations.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -21,6 +24,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+    // Controlador para la animación del ícono de completar tarea
     _iconController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -33,7 +37,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  // Muestra hoja modal para agregar una nueva tarea
+  // Abre la hoja modal para agregar una nueva tarea
   void _showAddTaskSheet() {
     showModalBottomSheet(
       context: context,
@@ -47,22 +51,24 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final taskProvider = context.watch<TaskProvider>();
+    final taskProvider = context.watch<TaskProvider>(); // Escucha el estado de tareas
+    final localizations = AppLocalizations.of(context)!; // Obtiene las traducciones activas
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tareas Pro'),
+        // Título traducido
+        title: Text(localizations.appTitle),
         actions: [
-          // Icono para cambiar tema claro/oscuro
+          // Botón para cambiar entre modo claro y oscuro
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, child) {
               return IconButton(
                 icon: Icon(
                   themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
                 ),
-                tooltip: 'Cambiar tema',
+                tooltip: localizations.changeTheme, // Tooltip traducido
                 onPressed: () {
-                  themeProvider.toggleTheme();
+                  themeProvider.toggleTheme(); // Cambia el tema
                 },
               );
             },
@@ -72,7 +78,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
       body: SafeArea(
         child: Column(
           children: [
-            const Header(),
+            const Header(), // Encabezado con saludo y subtítulo
             Expanded(
               child: AnimationLimiter(
                 child: ListView.builder(
@@ -80,6 +86,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                   itemCount: taskProvider.tasks.length,
                   itemBuilder: (context, index) {
                     final task = taskProvider.tasks[index];
+
                     return AnimationConfiguration.staggeredList(
                       position: index,
                       duration: const Duration(milliseconds: 500),
@@ -87,7 +94,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                         verticalOffset: 30.0,
                         child: FadeInAnimation(
                           child: Dismissible(
-                            key: ValueKey(task.key), // Uso del key de Hive
+                            key: ValueKey(task.key), // Clave de Hive
                             direction: DismissDirection.endToStart,
                             onDismissed: (_) => taskProvider.removeTask(index),
                             background: Container(
@@ -105,14 +112,13 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                               title: task.title,
                               isDone: task.done,
                               dueDate: task.dueDate,
-                              dueTime: task.dueTime,
                               onToggle: () {
-                                taskProvider.toggleTask(index);
-                                _iconController.forward(from: 0);
+                                taskProvider.toggleTask(index); // Cambia estado completado
+                                _iconController.forward(from: 0); // Ejecuta animación
                               },
                               onDelete: () => taskProvider.removeTask(index),
                               iconRotation: _iconController,
-                              index: index,
+                              index: index, dueTime: null,
                             ),
                           ),
                         ),
@@ -126,7 +132,7 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddTaskSheet,
+        onPressed: _showAddTaskSheet, // Abre formulario para nueva tarea
         backgroundColor: Colors.pinkAccent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

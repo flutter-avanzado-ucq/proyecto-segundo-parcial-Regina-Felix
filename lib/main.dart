@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 // Integración Hive: importación de Hive Flutter
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:tareas/screens/theme_provider.dart';
 
 import 'screens/tarea_screen.dart';
 import 'tema/tema_app.dart';
 import 'package:provider/provider.dart';
-import 'provider_task/task_provider.dart'; // agregación del theme_provider.dart
+import 'provider_task/task_provider.dart';
+import 'provider_task/theme_provider.dart'; // NUEVO
 
 // Importar modelo para Hive
 import 'models/task_model.dart';
 
 // Importar el servicio de notificaciones
 import 'services/notification_service.dart';
+
+// NUEVO: Importar AppLocalizations generado
+import 'l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   // Asegura que Flutter esté inicializado
@@ -58,6 +62,19 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.theme,
           darkTheme: ThemeData.dark(),
           themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+
+          // NUEVO: Configuración de internacionalización
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'), // Inglés
+            Locale('es'), // Español
+          ],
+
           home: const TaskScreen(),
         );
       },
