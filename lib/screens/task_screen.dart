@@ -7,6 +7,10 @@ import '../widgets/header.dart';
 import '../widgets/add_task_sheet.dart';
 import '../provider_task/task_provider.dart';
 
+// NUEVO: Importar AppLocalizations y pantalla de ajustes
+import '../screens/settings_screen.dart';
+import 'package:tareas/l10n/app_localizations.dart';
+
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
 
@@ -48,12 +52,39 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final taskProvider = context.watch<TaskProvider>(); // Escucha cambios en la lista de tareas
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(localizations.appTitle),
+        actions: [
+          // NUEVO: Botón para abrir ajustes de idioma
+          IconButton(
+            icon: const Icon(Icons.language),
+            tooltip: localizations.language,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
             const Header(), // Encabezado de la app
+
+            // NUEVO: Texto con pluralización del número de tareas
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                localizations.pendingTasks(taskProvider.tasks.length),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+
             Expanded(
               child: AnimationLimiter(
                 child: ListView.builder(
@@ -86,12 +117,11 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
                               title: task.title,
                               isDone: task.done,
                               dueDate: task.dueDate,
-                              // dueTime: task.dueTime, // ⏰ Se pasa la hora de la tarea para mostrarla
                               onToggle: () {
                                 taskProvider.toggleTask(index);
                                 _iconController.forward(from: 0);
                               },
-                              onDelete: () => taskProvider.removeTask(index), // Elimina tarea (y notificación si existe)
+                              onDelete: () => taskProvider.removeTask(index),
                               iconRotation: _iconController,
                               index: index, dueTime: null,
                             ),

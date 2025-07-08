@@ -10,7 +10,7 @@
   "selectDate": "Select date",
   "selectTime": "Select time",
   "timeLabel": "Time:",
-  "dueDate": "Due:",
+  "dueDate": "Due on {date}",
   "hourLabel": "Time:",
   "titleLabel": "Title",
   "changeDate": "Change date",
@@ -18,5 +18,7 @@
   "saveChanges": "Save changes",
   "greeting": "Hi, Regina 👋",
   "todayTasks": "These are your tasks for today",
-  "name": "name"
+  "name": "name",
+  "language": "Language",
+  "pendingTasks": "{count, plural, =0{You have no pending tasks} =1{You have 1 pending task} other{You have {count} pending tasks}}"
 }

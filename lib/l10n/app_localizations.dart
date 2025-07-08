@@ -208,6 +208,16 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'name'**
   String get name;
+
+  get language => null;
+
+  String pendingTasks(int length) {
+    if (length == 1) {
+      return 'Tienes 1 tarea pendiente';
+    } else {
+      return 'Tienes $length tareas pendientes';
+    }
+  }
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
