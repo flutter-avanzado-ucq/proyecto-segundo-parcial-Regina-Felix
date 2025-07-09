@@ -92,7 +92,7 @@ class TaskCard extends StatelessWidget {
                           DateFormat.yMMMMd(locale).format(dueDate!);
                           final translatedDueDate = localizations.dueDate;
                           return Text(
-                            translatedDueDate,
+                            translatedDueDate as String,
                             style: const TextStyle(fontSize: 12, color: Colors.grey),
                           );
                         },

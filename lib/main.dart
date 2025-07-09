@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // Integración Hive: importación de Hive Flutter
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'screens/tarea_screen.dart';
+import 'package:tareas/screens/task_screen.dart'; 
 import 'tema/tema_app.dart';
 import 'package:provider/provider.dart';
 import 'provider_task/task_provider.dart';

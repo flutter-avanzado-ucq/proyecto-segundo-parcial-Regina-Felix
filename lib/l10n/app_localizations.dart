@@ -158,8 +158,8 @@ abstract class AppLocalizations {
   /// No description provided for @dueDate.
   ///
   /// In en, this message translates to:
-  /// **'Due:'**
-  String get dueDate;
+  /// **'Due on {date}'**
+  String dueDate(Object date);
 
   /// No description provided for @hourLabel.
   ///
@@ -209,15 +209,17 @@ abstract class AppLocalizations {
   /// **'name'**
   String get name;
 
-  get language => null;
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
 
-  String pendingTasks(int length) {
-    if (length == 1) {
-      return 'Tienes 1 tarea pendiente';
-    } else {
-      return 'Tienes $length tareas pendientes';
-    }
-  }
+  /// No description provided for @pendingTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{You have no pending tasks} =1{You have 1 pending task} other{You have {count} pending tasks}}'**
+  pendingTasks(num count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
