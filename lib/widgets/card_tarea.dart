@@ -84,20 +84,19 @@ class TaskCard extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 4,
                     children: [
-                      // Integración Hive: la hora y fecha se extraen de dueDate, que es un DateTime completo
-                      // practica: aquí se muestra la FECHA extraída de dueDate con formato localizado y placeholder traducido
+                      // ✅ SOLO ESTA PARTE FUE MODIFICADA
                       Builder(
                         builder: (context) {
                           final locale = Localizations.localeOf(context).languageCode;
-                          DateFormat.yMMMMd(locale).format(dueDate!);
-                          final translatedDueDate = localizations.dueDate;
+                          final formattedDate = DateFormat.yMMMMd(locale).format(dueDate!);
+                          final translatedDueDate = localizations.dueDate(formattedDate);
                           return Text(
-                            translatedDueDate as String,
+                            translatedDueDate,
                             style: const TextStyle(fontSize: 12, color: Colors.grey),
                           );
                         },
                       ),
-                      // practica: aquí se muestra la HORA extraída de dueDate (hora programada de la notificación)
+                      // práctica: aquí se muestra la HORA extraída de dueDate (hora programada de la notificación)
                       Text(
                         '${localizations.hourLabel} ${DateFormat('HH:mm').format(dueDate!)}',
                         style: const TextStyle(fontSize: 12, color: Colors.grey),
