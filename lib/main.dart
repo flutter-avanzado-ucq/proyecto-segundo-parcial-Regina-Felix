@@ -19,6 +19,9 @@ import 'services/notification_service.dart';
 import 'l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+//Nuevo: Importar el cambio del clima 
+import 'provider_task/weather_provider.dart';
+
 void main() async {
   // Asegura que Flutter esté inicializado
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +46,9 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => TaskProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()), // ✅ NUEVO
-        ChangeNotifierProvider(create: (_) => LocaleProvider()), // ✅ NUEVO: para el idioma
+        ChangeNotifierProvider(create: (_) => ThemeProvider()), //  NUEVO
+        ChangeNotifierProvider(create: (_) => LocaleProvider()), //  NUEVO: para el idioma
+        ChangeNotifierProvider(create: (_) => WeatherProvider()), //  NUEVO: para el clima
       ],
       child: const MyApp(),
     ),

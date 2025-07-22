@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-
+import '../provider_task/weather_provider.dart';  //Nuevo
 import '../widgets/card_tarea.dart';
 import '../widgets/header.dart';
 import '../widgets/add_task_sheet.dart';
@@ -29,8 +29,14 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-  }
+  
 
+    //Nuevo: Carga el clima con coordenadas fijas (Querétaro)
+    Future.microtask(() async{
+      final weatherProvider = context.read<WeatherProvider>();
+      await weatherProvider.loadWeather(20.5888, -100.3899);
+    }); 
+  }
   @override
   void dispose() {
     _iconController.dispose();
