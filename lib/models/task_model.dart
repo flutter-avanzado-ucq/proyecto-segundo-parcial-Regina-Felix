@@ -22,6 +22,4 @@ class Task extends HiveObject {
     this.dueDate,
     this.notificationId,
   });
-
-  get dueTime => null;
 }

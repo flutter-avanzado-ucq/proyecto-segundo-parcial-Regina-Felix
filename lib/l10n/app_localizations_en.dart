@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Task Manager';
+  String get appTitle => 'Tasks Pro';
 
   @override
   String get addTask => 'Add task';
@@ -19,6 +19,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteTask => 'Delete task';
+
+  @override
+  String get taskDetails => 'Task details';
 
   @override
   String get changeTheme => 'Change theme';
@@ -33,18 +36,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectDate => 'Select date';
 
   @override
-  String get selectTime => 'Select time';
+  String get selectTime => 'Select Time';
 
   @override
   String get timeLabel => 'Time:';
 
   @override
   String dueDate(Object date) {
-    return 'Due on $date';
+    return 'due $date';
   }
 
   @override
-  String get hourLabel => 'Time:';
+  String get hourLabel => 'Hour:';
 
   @override
   String get titleLabel => 'Title';
@@ -59,7 +62,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveChanges => 'Save changes';
 
   @override
-  String get greeting => 'Hi, Regina 👋';
+  String get greeting => 'Hello, Regina';
 
   @override
   String get todayTasks => 'These are your tasks for today';
@@ -68,17 +71,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get name => 'name';
 
   @override
-  String get language => 'Language';
-
-  @override
   String pendingTasks(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'You have $count pending tasks',
-      one: 'You have 1 pending task',
-      zero: 'You have no pending tasks',
+      other: '$count pending tasks',
+      one: '1 pending task',
+      zero: 'No pending tasks',
     );
     return '$_temp0';
   }
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get holidayTag => '🎉 Holiday';
+
+  @override
+  String get systemDefault => 'System default';
+
+  @override
+  String get weatherLoading => 'Loading weather...';
+
+  @override
+  String get holiday => '🎉 Today is holiday: ';
 }

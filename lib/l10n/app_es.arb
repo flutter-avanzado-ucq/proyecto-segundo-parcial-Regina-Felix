@@ -4,21 +4,45 @@
   "addTask": "Agregar tarea",
   "editTask": "Editar tarea",
   "deleteTask": "Eliminar tarea",
+  "taskDetails": "Detalles de la tarea",
   "changeTheme": "Cambiar tema",
   "addNewTask": "Agregar nueva tarea",
   "description": "Descripción",
   "selectDate": "Seleccionar fecha",
-  "selectTime": "Seleccionar hora",
+  "selectTime": "Seleccionar Hora",
   "timeLabel": "Hora:",
-  "dueDate": "Vence el {date}",
+  "dueDate": "Vence:",
   "hourLabel": "Hora:",
   "titleLabel": "Título",
   "changeDate": "Cambiar fecha",
   "changeTime": "Cambiar hora",
   "saveChanges": "Guardar cambios",
-  "greeting": "Hola, Regina 👋",
+  "greeting": "Hola, Regina",
   "todayTasks": "Estas son tus tareas para hoy",
   "name": "nombre",
+  "pendingTasks": "{count, plural, =0{No tienes tareas pendientes} =1{Tienes 1 tarea pendiente} other{Tienes {count} tareas pendientes}}",
+  "@pendingTasks": {
+    "description": "Muestra el número de tareas pendientes",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "dueDate": "vence el {date}",
+  "@dueDate": {
+    "description": "Muestra la fecha de vencimiento de la tarea",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
   "language": "Idioma",
-  "pendingTasks": "{count, plural, =0{No tienes tareas pendientes} =1{Tienes 1 tarea pendiente} other{Tienes {count} tareas pendientes}}"
+  "settings": "Configuración",
+  "theme": "Tema",
+  "holidayTag": "🎉 Feriado",
+  "systemDefault": "Idioma del sistema",
+  "weatherLoading": "Cargando clima...",
+  "holiday": "🎉 Hoy es feriado: "
 }

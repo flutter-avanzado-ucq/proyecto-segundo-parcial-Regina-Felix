@@ -21,6 +21,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get deleteTask => 'Eliminar tarea';
 
   @override
+  String get taskDetails => 'Detalles de la tarea';
+
+  @override
   String get changeTheme => 'Cambiar tema';
 
   @override
@@ -33,14 +36,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get selectDate => 'Seleccionar fecha';
 
   @override
-  String get selectTime => 'Seleccionar hora';
+  String get selectTime => 'Seleccionar Hora';
 
   @override
   String get timeLabel => 'Hora:';
 
   @override
   String dueDate(Object date) {
-    return 'Vence el $date';
+    return 'vence el $date';
   }
 
   @override
@@ -59,7 +62,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get saveChanges => 'Guardar cambios';
 
   @override
-  String get greeting => 'Hola, Regina 👋';
+  String get greeting => 'Hola, Regina';
 
   @override
   String get todayTasks => 'Estas son tus tareas para hoy';
@@ -68,10 +71,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get name => 'nombre';
 
   @override
-  String get language => 'Idioma';
-
-  @override
-  pendingTasks(num count) {
+  String pendingTasks(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
@@ -81,4 +81,25 @@ class AppLocalizationsEs extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get language => 'Idioma';
+
+  @override
+  String get settings => 'Configuración';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get holidayTag => '🎉 Feriado';
+
+  @override
+  String get systemDefault => 'Idioma del sistema';
+
+  @override
+  String get weatherLoading => 'Cargando clima...';
+
+  @override
+  String get holiday => '🎉 Hoy es feriado: ';
 }

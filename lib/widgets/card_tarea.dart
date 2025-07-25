@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../widgets/edit_task_sheet.dart';
-
-// Importar AppLocalizations generado
 import 'package:tareas/l10n/app_localizations.dart';
+import '../provider_task/holiday_provider.dart'; // Importar HolidayProvider
 
 class TaskCard extends StatelessWidget {
   final String title;
@@ -23,12 +23,19 @@ class TaskCard extends StatelessWidget {
     required this.onDelete,
     required this.iconRotation,
     required this.index,
-    this.dueDate, required dueTime,
+    this.dueDate,
   });
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+
+    final holidays = context.watch<HolidayProvider>().holidays;
+    final isHoliday = dueDate != null && holidays != null &&
+        holidays.any((h) =>
+            h.date.year == dueDate!.year &&
+            h.date.month == dueDate!.month &&
+            h.date.day == dueDate!.day);
 
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 500),
@@ -84,7 +91,7 @@ class TaskCard extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 4,
                     children: [
-                      // ✅ SOLO ESTA PARTE FUE MODIFICADA
+                      // NUEVO: Fecha con formato localizado usando Builder
                       Builder(
                         builder: (context) {
                           final locale = Localizations.localeOf(context).languageCode;
@@ -96,11 +103,20 @@ class TaskCard extends StatelessWidget {
                           );
                         },
                       ),
-                      // práctica: aquí se muestra la HORA extraída de dueDate (hora programada de la notificación)
+                      // Hora extraída de dueDate
                       Text(
                         '${localizations.hourLabel} ${DateFormat('HH:mm').format(dueDate!)}',
                         style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
+                      if (isHoliday)
+                        Text(
+                          localizations.holidayTag,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                     ],
                   ),
                 ),

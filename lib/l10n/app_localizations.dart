@@ -98,7 +98,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'Task Manager'**
+  /// **'Tasks Pro'**
   String get appTitle;
 
   /// No description provided for @addTask.
@@ -118,6 +118,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete task'**
   String get deleteTask;
+
+  /// No description provided for @taskDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Task details'**
+  String get taskDetails;
 
   /// No description provided for @changeTheme.
   ///
@@ -146,7 +152,7 @@ abstract class AppLocalizations {
   /// No description provided for @selectTime.
   ///
   /// In en, this message translates to:
-  /// **'Select time'**
+  /// **'Select Time'**
   String get selectTime;
 
   /// No description provided for @timeLabel.
@@ -155,16 +161,16 @@ abstract class AppLocalizations {
   /// **'Time:'**
   String get timeLabel;
 
-  /// No description provided for @dueDate.
+  /// Shows the due date of the task
   ///
   /// In en, this message translates to:
-  /// **'Due on {date}'**
+  /// **'due {date}'**
   String dueDate(Object date);
 
   /// No description provided for @hourLabel.
   ///
   /// In en, this message translates to:
-  /// **'Time:'**
+  /// **'Hour:'**
   String get hourLabel;
 
   /// No description provided for @titleLabel.
@@ -194,7 +200,7 @@ abstract class AppLocalizations {
   /// No description provided for @greeting.
   ///
   /// In en, this message translates to:
-  /// **'Hi, Regina 👋'**
+  /// **'Hello, Regina'**
   String get greeting;
 
   /// No description provided for @todayTasks.
@@ -209,17 +215,53 @@ abstract class AppLocalizations {
   /// **'name'**
   String get name;
 
+  /// Shows the number of pending tasks
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No pending tasks} =1{1 pending task} other{{count} pending tasks}}'**
+  String pendingTasks(num count);
+
   /// No description provided for @language.
   ///
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
 
-  /// No description provided for @pendingTasks.
+  /// No description provided for @settings.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{You have no pending tasks} =1{You have 1 pending task} other{You have {count} pending tasks}}'**
-  pendingTasks(num count);
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @holidayTag.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Holiday'**
+  String get holidayTag;
+
+  /// No description provided for @systemDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get systemDefault;
+
+  /// No description provided for @weatherLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading weather...'**
+  String get weatherLoading;
+
+  /// No description provided for @holiday.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Today is holiday: '**
+  String get holiday;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
